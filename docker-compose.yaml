@@ -1,0 +1,39 @@
+version: "3.9"
+
+networks:
+  turtlebot_net:
+    name: turtlebot_net
+
+services:
+
+  turtlebot3:
+    build:
+      context: ./src/turtlebot3
+      dockerfile: Dockerfile
+    container_name: turtlebot3
+    environment:
+      - QT_X11_NO_MITSHM=1
+      - DISPLAY=$DISPLAY
+      - ROS_DOMAIN_ID=112
+      - ROS_LOCALHOST_ONLY=1
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      - TURTLEBOT3_MODEL=burger
+    networks:
+      - turtlebot_net
+    command: ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
+
+  zenoh_bridge:
+    build:
+      context: ./src/zenoh
+      dockerfile: Dockerfile
+    container_name: zenoh_bridge
+    environment:
+      - ROS_DOMAIN_ID=112
+      - ROS_LOCALHOST_ONLY=1
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+    networks:
+      - turtlebot_net
+    ports:
+      - 7447:7447
+      - 7446:7446
+    command: install/zenoh_bridge_ros2dds/bin/zenoh_bridge_ros2dds -l tcp/0.0.0.0:7447

@@ -1,0 +1,9 @@
+repositories:
+  src/zenoh/zenoh-plugin-ros2dds:
+    type: git
+    url: https://github.com/eclipse-zenoh/zenoh-plugin-ros2dds.git
+    version: main
+  src/turtlebot3/turtlebot3_simulations:
+    type: git
+    url: https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
+    version: humble-devel
