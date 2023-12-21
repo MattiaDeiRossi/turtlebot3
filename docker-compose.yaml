@@ -20,7 +20,7 @@ services:
       - TURTLEBOT3_MODEL=burger
     networks:
       - turtlebot_net
-    command: ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
+    command: ros2 launch webots_ros2_turtlebot robot_launch.py nav:=true
 
   zenoh_bridge:
     image: eclipse/zenoh-bridge-ros2dds:nightly

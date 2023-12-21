@@ -1,2 +1,2 @@
-FROM eclipse/zenoh-bridge-ros2dds:nightly
+# FROM eclipse/zenoh-bridge-ros2dds:nightly
 # TODO
