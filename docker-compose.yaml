@@ -3,34 +3,88 @@ version: "3.9"
 networks:
   turtlebot_net:
     name: turtlebot_net
-
+    
 services:
 
-  turtlebot3:
-    build:
-      context: ./src/turtlebot3
-      dockerfile: Dockerfile
-    container_name: turtlebot3
-    environment:
-      - QT_X11_NO_MITSHM=1
-      - DISPLAY=$DISPLAY
-      - ROS_DOMAIN_ID=112
-      # - ROS_LOCALHOST_ONLY=1
-      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-      - TURTLEBOT3_MODEL=burger
-    networks:
-      - turtlebot_net
-    command: ros2 launch webots_ros2_turtlebot robot_launch.py nav:=true
+  # turtlebot3:
+  #   build:
+  #     context: ./src/turtlebot3
+  #     dockerfile: Dockerfile
+  #   container_name: turtlebot3
+  #   environment:
+  #     - QT_X11_NO_MITSHM=1
+  #     - DISPLAY=$DISPLAY
+  #     - ROS_DOMAIN_ID=112
+  #     - ROS_LOCALHOST_ONLY=1
+  #     - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+  #     - TURTLEBOT3_MODEL=burger
+  #     - USER=user
+    # volumes:
+    #   - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    # networks:
+    #   - turtlebot_net
+    # network_mode: host
+    # command: ros2 launch webots_ros2_turtlebot robot_launch.py nav:=true
 
-  zenoh_bridge:
+  # --- robot configuration ---
+  zenoh-robot-bridge:
     image: eclipse/zenoh-bridge-ros2dds:nightly
+    container_name: zenoh-robot-bridge
     environment:
       - ROS_DISTRO=humble
-      - ROS_DOMAIN_ID=112
-      # - ROS_LOCALHOST_ONLY=1
+      # - ROS_DOMAIN_ID=112
+      - ROS_LOCALHOST_ONLY=1
       - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-    networks:
-      - turtlebot_net
-    ports:
-      - 8000:8000
-    command: -l tcp/0.0.0.0:7447 --rest-http-port 8000 -i 0A0B23
+    network_mode: host
+    # networks:
+    #   - turtlebot_net
+    # ports:
+    #   - 7448:7447
+    #   - 8001:8001
+    command: -l tcp/0.0.0.0:7447 -i 0A0B23 --rest-http-port 8001
+
+  # --- client configuration ---
+  zenoh-client-bridge:
+    image: eclipse/zenoh-bridge-ros2dds:nightly
+    container_name: zenoh-client-bridge
+    environment:
+      - ROS_DISTRO=humble
+      - ROS_DOMAIN_ID=113
+      - ROS_LOCALHOST_ONLY=1
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+    network_mode: host
+    # networks:
+    #   - turtlebot_net
+    # ports:
+    #   - 7449:7447
+    #   - 8002:8002
+    command: -e tcp/192.168.175.45:7447 -i 0A0B23 --rest-http-port 8002
+
+  # foxglove-bridge:
+  #   build:
+  #     context: ./src/foxglove
+  #     dockerfile: Dockerfile
+  #   container_name: foxglove-bridge
+  #   environment:
+  #     - ROS_DOMAIN_ID=113
+  #     - ROS_LOCALHOST_ONLY=1
+  #     - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+  #   network_mode: host
+  #   # networks:
+  #   #   - turtlebot_net
+  #   # ports:
+  #   #   - 8765:8765
+  #   command: ros2 launch foxglove_bridge foxglove_bridge_launch.xml port:=8765
+
+  # foxglove-studio:
+  #   image: ghcr.io/foxglove/studio:latest
+  #   container_name: foxglove-studio
+  #   network_mode: host
+  #   depends_on:
+  #     - foxglove-bridge
+  #   # networks:
+  #   #   - turtlebot_net
+  #   # ports:
+  #   #   - 8080:8080
+  #   volumes:
+  #     - ./foxglove/foxglove-layout.json:/foxglove/default-layout.json

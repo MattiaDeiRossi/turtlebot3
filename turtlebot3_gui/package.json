@@ -1,5 +1,5 @@
 {
-  "name": "turlebot3_gui",
+  "name": "turtlebot3_gui",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,10 +10,19 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@react-three/drei": "^9.93.0",
+    "@react-three/fiber": "^8.15.14",
+    "@types/three": "^0.160.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "socket.io-client": "^4.7.4",
+    "three": "^0.160.0"
   },
   "devDependencies": {
+    "@types/node": "^20.11.3",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
@@ -22,6 +31,7 @@
     "eslint": "^8.55.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "react-use-refs": "^1.0.1",
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
   }

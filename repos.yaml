@@ -7,7 +7,7 @@ repositories:
     type: git
     url: https://github.com/ROBOTIS-GIT/turtlebot3.git
     version: humble-devel
-  src/turtlebot3/webots_ros2:
-    type: git
-    url: https://github.com/cyberbotics/webots_ros2.git
-    version: master
+  # src/turtlebot3/webots_ros2:
+  #   type: git
+  #   url: https://github.com/cyberbotics/webots_ros2.git
+  #   version: master

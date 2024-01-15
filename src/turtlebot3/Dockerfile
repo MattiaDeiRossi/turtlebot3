@@ -2,8 +2,9 @@ ARG ROS_DISTRO="humble"
 FROM ros:${ROS_DISTRO}
 
 WORKDIR /turtlebot3
-ADD . ./src/
-RUN apt update && apt install ros-${ROS_DISTRO}-rmw-cyclonedds-cpp -y
+# ADD . ./src/
+RUN apt update && apt install ros-${ROS_DISTRO}-rmw-cyclonedds-cpp -y \
+    && apt-get install ros-humble-webots-ros2 -y
 RUN . /opt/ros/${ROS_DISTRO}/setup.sh \
     && apt update \
     # && apt install ros-${ROS_DISTRO}-gazebo-* -y\
