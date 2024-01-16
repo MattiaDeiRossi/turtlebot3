@@ -25,10 +25,17 @@ docker compose up
 ``` -->
 
 
+
 ## On robot or simulation
+0. Install `zenoh-bridge-ros2dds`
+```
+echo "deb [trusted=yes] https://download.eclipse.org/zenoh/debian-repo/ /" | sudo tee -a /etc/apt/sources.list > /dev/null
+sudo apt update
+sudo apt install zenoh-bridge-ros2dds
+```
 1. Launch simulation or real robot with navigation stack
 ```
-export ROS_DOMAIN_ID=112
+export ROS_DOMAIN_ID=111
 export ROS_LOCALHOST_ONLY=1
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 ros2 launch webots_ros2_turtlebot robot_launch.py nav:=true

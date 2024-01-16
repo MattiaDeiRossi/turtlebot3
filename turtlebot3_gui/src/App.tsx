@@ -1,13 +1,19 @@
 import './App.css'
-import { SocketContext, socket } from './socket/Client'
-import Teleop from './components/Teleop/Teleop'
-import Visualizer from './components/Visualizer/Visualizer'
+import Teleop from './components/Teleop/TeleopCard'
+import Render from './components/Visualizer/Render'
+import { useEffect, useState } from 'react';
+import SocketPanel from "./components/Socket/SocketCard";
 
 function App() {
+
   return (
     <div className='rowC'>
-      <Visualizer />
-      <Teleop />
+      <Render />
+      <div className='rowR'>
+        <SocketPanel />
+        <Teleop />
+      </div>
+
     </div>
   )
 

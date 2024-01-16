@@ -6,7 +6,7 @@ import json
 import math
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
-from flask_socketio import SocketIO, send, emit
+from flask_socketio import SocketIO
 
 import zenoh
 from turtlebot3_server.turtlebot3 import *
@@ -16,7 +16,7 @@ app = Flask(__name__)
 socketio = SocketIO(app, cors_allowed_origins=['http://localhost:5173'])
 
 z = zenoh.open()
-turtlebot = Turtlebot3(z)
+turtlebot = Turtlebot3(z, socketio)
 
 @socketio.on('connect')
 def connected():
