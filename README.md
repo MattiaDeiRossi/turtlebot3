@@ -35,15 +35,16 @@ sudo apt install zenoh-bridge-ros2dds
 ```
 1. Launch simulation or real robot with navigation stack
 ```
-export ROS_DOMAIN_ID=111
+#export ROS_DOMAIN_ID=111
 export ROS_LOCALHOST_ONLY=1
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 ros2 launch webots_ros2_turtlebot robot_launch.py nav:=true
 ```
 2. Launch zenoh bridge
 ```
-export ROS_DOMAIN_ID=112
-export ROS_LOCALHOST_ONLY=1
+sudo ip l set lo multicast on
+#export ROS_DOMAIN_ID=111
+<!-- export ROS_LOCALHOST_ONLY=1 -->
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 zenoh-bridge-ros2dds -c zenoh/config.json5
 ```
@@ -52,30 +53,15 @@ zenoh-bridge-ros2dds -c zenoh/config.json5
 curl http://localhost:8000/@ros2/turtlebot3/route/topic/**
 ```
 
-
+## On client
+0. Run backend
 ```
+cd turtlebot3_server
 flask --app server run
 ```
-
-## On client 
+1. Run frontend
 ```
-./zenoh-bridge-ros2dds -e tcp/0.0.0.0:7447 -i 0A0B23 --rest-http-port 8002
+cd turtlebot3_gui/
+pnpm run dev
 ```
-## Admin space via REST
-```
-curl http://localhost:8002/@ros2/0A0B23/route/topic/**
-```
-## Launch foxglove bridge on Client
-```
-export ROS_DOMAIN_ID=112
-export ROS_LOCALHOST_ONLY=1
-export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-ros2 launch foxglove_bridge foxglove_bridge_launch.xml
-```
-## Launch foxglove studio on Client
-```
-docker run --rm -p "8080:8080" -v /path/to/custom_layout.json:/foxglove/default-layout.json ghcr.io/foxglove/studio:latest
-```
-
-## Go
-[http://localhost:8080](http://localhost:8080)
+2. Go to [http://localhost:5173/](http://localhost:5173/)
