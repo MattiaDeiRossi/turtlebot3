@@ -7,10 +7,10 @@ import './Render.css';
 import * as THREE from 'three';
 // import Model from '../Turtlebot/Model';
 
-function Model() {
-  const { scene } = useGLTF('/burger_base.glb')
-  return <primitive object={scene} />
-}
+// function Model() {
+//   const { scene } = useGLTF('/burger_base.glb')
+//   return <primitive object={scene} />
+// }
 
 const Render = () => {
   const box = useRef<THREE.Mesh>(null);
@@ -57,7 +57,7 @@ const Render = () => {
         <meshStandardMaterial color={'red'} />
       </mesh>
 
-      <Model></Model>
+      {/* <Model></Model> */}
 
       <OrbitControls makeDefault />
       <axesHelper />

@@ -55,8 +55,8 @@
       ////               Use 'deny' to allow all except the specified interfaces. If an interface type is set to an empty list
       ////               or is not specified at all, it means that ALL such interface are allowed.
       allow: {
-        publishers: ["/cmd_vel", "/tf"],
-        subscribers: ["/cmd_vel", "/tf", "/map"],
+        publishers: ["/cmd_vel",],
+        subscribers: ["/cmd_vel", "/tf", "/map", "/joint_states", "/robot_description", "/scan"],
         service_servers: [""],
         service_clients: [],
         action_servers: [".*/bt_navigator"],
@@ -131,19 +131,19 @@
   //// Which endpoints to connect to. E.g. tcp/localhost:7447.
   //// By configuring the endpoints, it is possible to tell zenoh which router/peer to connect to at startup.
   ////
-  connect: {
-    endpoints: [
-      "tcp/localhost:7447"
-    ]
-  },
+  // connect: {
+  //   endpoints: [
+  //     "tcp/localhost:7447"
+  //   ]
+  // },
   ////
   //// Which endpoints to listen on. E.g. tcp/localhost:7447.
   //// By configuring the endpoints, it is possible to tell zenoh which are the endpoints that other routers,
   //// peers, or client can use to establish a zenoh session.
   ////
-  listen: {
-    endpoints: [
-      // "<proto>/<ip>:<port>"
-    ]
-  },
+  // listen: {
+  //   endpoints: [
+  //     // "<proto>/<ip>:<port>"
+  //   ]
+  // },
 }

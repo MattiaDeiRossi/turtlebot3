@@ -27,13 +27,13 @@
       },
       "cameraState": {
         "perspective": true,
-        "distance": 5.006881794847078,
-        "phi": 59.999999999998266,
-        "thetaOffset": 45.00000000000003,
+        "distance": 1.6198942163503154,
+        "phi": 59.99999999999745,
+        "thetaOffset": 45.00000000000007,
         "targetOffset": [
-          0.720005297482591,
-          0.16368345047640162,
-          3.2934295097657205e-17
+          -0.2560458217968037,
+          -0.22000143603561748,
+          -7.545882545618527e-17
         ],
         "target": [
           0,
@@ -55,9 +55,17 @@
       "scene": {
         "enableStats": false,
         "ignoreColladaUpAxis": false,
-        "meshUpAxis": "y_up"
+        "meshUpAxis": "z_up",
+        "transforms": {
+          "editable": false,
+          "showLabel": false
+        }
       },
-      "transforms": {},
+      "transforms": {
+        "frame:solid": {
+          "visible": true
+        }
+      },
       "topics": {
         "/scan": {
           "visible": true,
@@ -94,25 +102,33 @@
       },
       "imageMode": {}
     },
-    "Teleop!1a3igyg": {
-      "topic": "/cmd_vel",
-      "publishRate": 1,
-      "upButton": {
-        "field": "linear-x",
-        "value": 1
-      },
-      "downButton": {
-        "field": "linear-x",
-        "value": -1
-      },
-      "leftButton": {
-        "field": "angular-z",
-        "value": 1
-      },
-      "rightButton": {
-        "field": "angular-z",
-        "value": -1
-      }
+    "Plot!2x2lge2": {
+      "paths": [
+        {
+          "timestampMethod": "receiveTime",
+          "value": "/joint_states.velocity[0]",
+          "enabled": true,
+          "label": "left wheel"
+        },
+        {
+          "timestampMethod": "receiveTime",
+          "value": "/joint_states.velocity[1]",
+          "enabled": true,
+          "label": "right wheel"
+        }
+      ],
+      "minYValue": -7,
+      "maxYValue": 7,
+      "showXAxisLabels": true,
+      "showYAxisLabels": true,
+      "showLegend": true,
+      "legendDisplay": "floating",
+      "showPlotValuesInLegend": false,
+      "isSynced": true,
+      "xAxisVal": "timestamp",
+      "sidebarDimension": 240,
+      "followingViewWidth": 30,
+      "foxglovePanelTitle": "Velocities"
     }
   },
   "globalVariables": {},
@@ -122,7 +138,8 @@
   },
   "layout": {
     "first": "3D!18i6zy7",
-    "second": "Teleop!1a3igyg",
-    "direction": "row"
+    "second": "Plot!2x2lge2",
+    "direction": "column",
+    "splitPercentage": 62.83783783783784
   }
 }
