@@ -12,7 +12,7 @@ interface Cmd {
   direction: string;
 }
 
-export default function Teleop() {
+export default function TeleopCard() {
   const [sliderValue, setSliderValue] = useState(1);
   const [cmd, setIsPressed] = useState<Cmd>({ isPressed: false, direction: '' });
 

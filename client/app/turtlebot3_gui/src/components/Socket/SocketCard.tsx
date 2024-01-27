@@ -6,7 +6,7 @@ import { socket } from "./socket";
 
 import Card from 'react-bootstrap/Card';
 
-function SocketPanel() {
+function SocketCard() {
     const [isConnected, setIsConnected] = useState(socket.connected);
     const [fooEvents, setFooEvents] = useState([]);
 
@@ -50,4 +50,4 @@ function SocketPanel() {
     )
 }
 
-export default SocketPanel;
+export default SocketCard;

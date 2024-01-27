@@ -7,6 +7,8 @@ import './ThreeScene.css';
 import * as THREE from 'three';
 import URDFLoader from 'urdf-loader';
 
+let rb;
+
 function TurtleBot() {
   const { scene } = useThree()
   const manager = new THREE.LoadingManager();
@@ -14,6 +16,7 @@ function TurtleBot() {
   loader.load('/turtlebot3_description/urdf/turtlebot3_burger.urdf', robot => {
     robot.rotateX(-Math.PI / 2)
     scene.add(robot);
+    rb = robot;
   });
   return (<></>)
 }
@@ -22,20 +25,10 @@ const ThreeScene = () => {
 
 
   useEffect(() => {
-    function onFooEvent(msg: Tf) {
+    function onFooEvent(msg) {
       console.log(msg)
-      // if (box) {
-      //   box.position.set(100, 100, 100)
-      //   box.current.position.x = msg.x;
-      //   box.current.position.y = msg.y;
-      //   box.current.position.z = msg.z;
-
-      //   box.current.rotation.x = msg.xx;
-      //   box.current.rotation.y = msg.yy;
-      //   box.current.rotation.z = msg.zz;
-      // }
-
-      // box.current.rotation.w = msg.ww;
+      rb.joints["right wheel motor"].setJointValue(msg);
+      rb.joints["left wheel motor"].setJointValue(THREE.MathUtils.degToRad(30));
     }
 
     socket.on('tf', onFooEvent);

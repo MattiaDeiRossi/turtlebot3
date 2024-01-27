@@ -1,7 +1,8 @@
 import './App.css'
-import Teleop from './components/Teleop/TeleopCard'
-import SocketPanel from "./components/Socket/SocketCard";
+import TeleopCard from './components/Teleop/TeleopCard'
+import SocketCard from "./components/Socket/SocketCard";
 import ThreeScene from './components/Visualizer/ThreeScene';
+import Nav2Card from './components/Nav2/Nav2Card';
 
 function App() {
 
@@ -9,8 +10,9 @@ function App() {
     <div className='rowC'>
       <ThreeScene />
       <div className='rowR'>
-        <SocketPanel />
-        <Teleop />
+        <SocketCard />
+        <TeleopCard />
+        <Nav2Card/>
       </div>
 
     </div>
