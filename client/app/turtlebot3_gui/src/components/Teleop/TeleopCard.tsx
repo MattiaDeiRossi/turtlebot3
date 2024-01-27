@@ -1,12 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp, faArrowDown, faRotateLeft, faRotateRight } from '@fortawesome/free-solid-svg-icons';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Slider from './Slider';
 import './Teleop.css';
 import { socket } from '../Socket/socket';
 
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
 
 interface Cmd {
   isPressed: boolean;
@@ -50,28 +49,28 @@ export default function Teleop() {
 
         <div>
           <div className='rowR'>
-            <Button variant="info"
+            <button className='btn btn-info' 
               onMouseDown={() => setIsPressed({ isPressed: true, direction: 'fwd' })}
               onMouseUp={() => setIsPressed({ isPressed: false, direction: 'stop' })} >
               <FontAwesomeIcon icon={faArrowUp} />
-            </Button>
+            </button>
           </div>
           <div className='rowR'>
-            <Button variant="info"
+            <button className='btn btn-info' 
               onMouseDown={() => setIsPressed({ isPressed: true, direction: 'left' })}
               onMouseUp={() => setIsPressed({ isPressed: false, direction: 'stop' })} >
               <FontAwesomeIcon icon={faRotateLeft} />
-            </Button>
-            <Button variant="info"
+            </button>
+            <button className='btn btn-info' 
               onMouseDown={() => setIsPressed({ isPressed: true, direction: 'bwd' })}
               onMouseUp={() => setIsPressed({ isPressed: false, direction: 'stop' })} >
               <FontAwesomeIcon icon={faArrowDown} />
-            </Button>
-            <Button variant="info"
+            </button>
+            <button className='btn btn-info' 
               onMouseDown={() => setIsPressed({ isPressed: true, direction: 'right' })}
               onMouseUp={() => setIsPressed({ isPressed: false, direction: 'stop' })} >
               <FontAwesomeIcon icon={faRotateRight} />
-            </Button>
+            </button>
 
           </div>
         </div>

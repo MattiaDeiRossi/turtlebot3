@@ -1,4 +1,3 @@
-import Button from 'react-bootstrap/Button';
 import { socket } from './socket';
 
 export function ConnectionManager() {
@@ -12,8 +11,8 @@ export function ConnectionManager() {
 
     return (
         <div className='rowC mt-4'>
-            <Button variant="primary" size="sm" onClick={connect}>Connect</Button>
-            <Button variant="secondary" size="sm" onClick={disconnect}>Disconnect</Button>
+            <button className='btn btn-info sm'  onClick={connect}>Connect</button>
+            <button className='btn btn-info sm' onClick={disconnect}>Disconnect</button>
         </div>
     );
 }

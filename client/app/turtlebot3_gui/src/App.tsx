@@ -1,14 +1,13 @@
 import './App.css'
 import Teleop from './components/Teleop/TeleopCard'
-import Render from './components/Visualizer/Render'
-import { useEffect, useState } from 'react';
 import SocketPanel from "./components/Socket/SocketCard";
+import ThreeScene from './components/Visualizer/ThreeScene';
 
 function App() {
 
   return (
     <div className='rowC'>
-      <Render />
+      <ThreeScene />
       <div className='rowR'>
         <SocketPanel />
         <Teleop />

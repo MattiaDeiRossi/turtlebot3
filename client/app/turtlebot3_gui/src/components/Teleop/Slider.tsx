@@ -1,8 +1,6 @@
-import { useState } from 'react';
-
 const Slider = ({sliderValue, setSliderValue}) => {
-  const handleSliderChange = () => {
-    setSliderValue(event.target.value);
+  const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSliderValue(Number(event.target.value));
   };
 
   return (
