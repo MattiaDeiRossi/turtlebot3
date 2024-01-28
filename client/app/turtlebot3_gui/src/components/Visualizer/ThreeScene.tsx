@@ -1,7 +1,6 @@
 import { Canvas, useThree } from '@react-three/fiber'
 import { OrbitControls, Shadow } from '@react-three/drei'
 import { useEffect } from 'react';
-import { Tf } from '../interfaces';
 import { socket } from '../Socket/socket';
 import './ThreeScene.css';
 import * as THREE from 'three';
