@@ -1,11 +1,11 @@
 import { Canvas, useThree } from '@react-three/fiber'
 import { OrbitControls, Shadow } from '@react-three/drei'
-import { useEffect } from 'react';
-import { socket } from '../Socket/socket';
+import { useContext, useEffect, useState } from 'react';
 import './ThreeScene.css';
 import * as THREE from 'three';
 import URDFLoader from 'urdf-loader';
-
+import { Topic } from 'roslib';
+import { SocketContext } from '../RosConnection/RosContext';
 let rb;
 
 function TurtleBot() {
@@ -21,19 +21,34 @@ function TurtleBot() {
 }
 
 const ThreeScene = () => {
-
+  const ros = useContext(SocketContext);
+  const [shadow, setShadow] = useState('green');
 
   useEffect(() => {
-    function onFooEvent(msg) {
-      console.log(msg)
-      rb.joints["right wheel motor"].setJointValue(msg);
-      rb.joints["left wheel motor"].setJointValue(THREE.MathUtils.degToRad(30));
+    const joint_states = new Topic({
+      ros: ros,
+      name: "joint_states",
+      messageType: "sensor_msgs/JointState",
+      throttle_rate: 500 // TOBE tested
+    })
+
+    joint_states.subscribe(onJointStates);
+
+
+    function onJointStates(msg) {
+      if (msg.velocity[0] != 0 || msg.velocity[1] != 0)
+        setShadow('blue')
+      else
+        setShadow('green')
+      if (rb.joints) {
+        rb.joints['wheel_right_joint'].setJointValue(msg.position[0]);
+        rb.joints['wheel_left_joint'].setJointValue(msg.position[1]);
+      }
+
     }
 
-    socket.on('tf', onFooEvent);
-
     return () => {
-      socket.off('tf', onFooEvent);
+      joint_states.unsubscribe();
     };
   }, []);
 
@@ -42,7 +57,7 @@ const ThreeScene = () => {
       <directionalLight position={[3.3, 1.0, 4.4]} intensity={4} />
 
       <Shadow
-        color="blue"
+        color={shadow}
         colorStop={0}
         opacity={0.5}
         fog={false}

@@ -6,27 +6,40 @@ version: "3.9"
     
 services:
 
-  zenoh-bridge:
-    image: eclipse/zenoh-bridge-ros2dds:nightly
-    container_name: zenoh-bridge
-    environment:
-      - ROS_DISTRO=humble
-      - ROS_DOMAIN_ID=1
-      - ROS_LOCALHOST_ONLY=1
-      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+  # zenoh-bridge:
+  #   image: eclipse/zenoh-bridge-ros2dds:nightly
+  #   container_name: zenoh-bridge
+  #   environment:
+  #     - ROS_DISTRO=humble
+  #     - ROS_DOMAIN_ID=1
+  #     - ROS_LOCALHOST_ONLY=1
+  #     - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+  #   network_mode: host
+  #   # networks:
+  #   #   - turtlebot_net
+  #   # ports:
+  #   #   - 7449:7447
+  #   #   - 8002:8002
+  #   command: -e tcp/192.168.3.78:7447 -i turtlebot3 --rest-http-port 8000
+
+  turtlebot3-gui:
+    build:
+      context: ./turtlebot3_gui
+      dockerfile: Dockerfile
+    container_name: turtlebot3-gui
     network_mode: host
+    depends_on:
+      - turtlebot3-server
     # networks:
     #   - turtlebot_net
     # ports:
-    #   - 7449:7447
-    #   - 8002:8002
-    # command: -e tcp/192.168.175.45:7447 -i 0A0B23 --rest-http-port 8002
+    #   - 8765:8765
 
-  foxglove-bridge:
+  turtlebot3-server:
     build:
-      context: ./foxglove
+      context: ./turtlebot3_server
       dockerfile: Dockerfile
-    container_name: foxglove-bridge
+    container_name: turtlebot3-server
     environment:
       - ROS_DOMAIN_ID=1
       - ROS_LOCALHOST_ONLY=1
@@ -36,14 +49,16 @@ services:
     #   - turtlebot_net
     # ports:
     #   - 8765:8765
-    command: ros2 launch foxglove_bridge foxglove_bridge_launch.xml port:=8765
+    # command: flask --app server run
+    command: ros2 launch rosbridge_server rosbridge_websocket_launch.xml
+
 
   foxglove-studio:
     image: ghcr.io/foxglove/studio:latest
     container_name: foxglove-studio
     network_mode: host
     depends_on:
-      - foxglove-bridge
+      - turtlebot3-server
     # networks:
     #   - turtlebot_net
     # ports:
