@@ -35,19 +35,19 @@ zenoh-bridge-ros2dds -l tcp/0.0.0.0:7447
 ```
 
 ## On client
-1. Launch zenoh bridge
+<!-- 1. Launch zenoh bridge
 ```bash
 export ROS_DOMAIN_ID=333
 export ROS_LOCALHOST_ONLY=1
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 zenoh-bridge-ros2dds -l tcp/<robot-ip>:7447
-```
+``` -->
 
-2. Run Rosbridge + App + FoxgloveStudio
+1. Run Rosbridge + App + FoxgloveStudio + zenoh bridge
 ```
 docker compose up
 ```
-3. Go to
+2. Go to
 - ( App ) Web App [http://localhost:80/](http://localhost:80/)
 - ( FoxgloveStudio ) Foxglove [http://localhost:8080/](http://localhost:8080/)
 
